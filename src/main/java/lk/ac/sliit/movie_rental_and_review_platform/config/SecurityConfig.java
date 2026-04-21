@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()       // signup & signin are public
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // admin-only routes
                         .requestMatchers("/api/user/**").hasRole("USER")   // user-only routes
+                        .requestMatchers("/api/payments/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
