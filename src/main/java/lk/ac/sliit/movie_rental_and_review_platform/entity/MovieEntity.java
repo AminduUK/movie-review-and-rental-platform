@@ -37,7 +37,9 @@ public class MovieEntity {
     private LocalDateTime createdAt;
 
     // Many-to-Many with Category via movie_category join table
- /*   @ManyToMany
+
+
+    /*   @ManyToMany
     @JoinTable(
             name = "movie_category",
             joinColumns = @JoinColumn(name = "movie_id"),
