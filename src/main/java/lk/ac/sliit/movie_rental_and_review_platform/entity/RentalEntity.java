@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
-
 
 @Data
 @NoArgsConstructor
@@ -41,13 +39,12 @@ public class RentalEntity {
     private UserEntity user;
 
     // Many-to-One → MOVIE
-//    @ManyToOne
-//    @JoinColumn(name = "movie_id", nullable = false)
-//    private MovieEntity movie;
+    @ManyToOne
+    @JoinColumn(name = "movie_id", nullable = false)
+    private MovieEntity movie;
 
     // One-to-One → PAYMENT
-//    @OneToOne(mappedBy = "rental", cascade = CascadeType.ALL)
-//    private PaymentEntity payment;
+    @OneToOne(mappedBy = "rental", cascade = CascadeType.ALL)
+    private PaymentEntity payment;
 
-    // getters & setters
 }

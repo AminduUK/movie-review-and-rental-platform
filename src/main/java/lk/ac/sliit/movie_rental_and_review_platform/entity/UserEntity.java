@@ -5,7 +5,6 @@ import lk.ac.sliit.movie_rental_and_review_platform.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -14,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "user")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
