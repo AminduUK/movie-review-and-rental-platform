@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "movie")
 public class MovieEntity {
@@ -37,9 +36,7 @@ public class MovieEntity {
     private LocalDateTime createdAt;
 
     // Many-to-Many with Category via movie_category join table
-
-
-    /*   @ManyToMany
+    @ManyToMany
     @JoinTable(
             name = "movie_category",
             joinColumns = @JoinColumn(name = "movie_id"),
@@ -56,6 +53,5 @@ public class MovieEntity {
 
    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
    private List<WatchlistEntity> watchlistEntries = new ArrayList<>();
-*/
-    // getters & setters
+
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,8 +24,7 @@ public class CategoryEntity {
     private String description;
 
     // back reference to Movie
-//    @ManyToMany(mappedBy = "categories")
-//    private List<MovieEntity> movies = new ArrayList<>();
+    @ManyToMany(mappedBy = "categories")
+    private List<MovieEntity> movies = new ArrayList<>();
 
-    // getters & setters
 }
