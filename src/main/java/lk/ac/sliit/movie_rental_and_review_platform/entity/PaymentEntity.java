@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -41,8 +40,8 @@ public class PaymentEntity {
     private LocalDateTime paymentDate;
 
     // One-to-One → RENTAL (owns the FK)
-//    @OneToOne
-//    @JoinColumn(name = "rental_id", nullable = false, unique = true)
-//    private RentalEntity rental;
+    @OneToOne
+    @JoinColumn(name = "rental_id", nullable = false, unique = true)
+    private RentalEntity rental;
 
 }
