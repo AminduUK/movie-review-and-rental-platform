@@ -2,6 +2,7 @@ package lk.ac.sliit.movie_rental_and_review_platform.service.impl;
 
 import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignInRequest;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignUpRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.UpdateUserPasswordRequest;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.AuthResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.UserResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.entity.UserEntity;
@@ -18,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -92,6 +94,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateUserPassword(UpdateUserPasswordRequest request) {
+        UserEntity userEntity = userRepository.findById(request.getUserID())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        //verify current password matches the password in the database
+        if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        //make sure new password is different from the current password
+        if (passwordEncoder.matches(request.getNewPassword(), userEntity.getPassword())) {
+            throw new RuntimeException("New password cannot be the same as current password");
+        }
+
+        //encode and save the new password
+        userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(userEntity);
+
     }
 
 }
