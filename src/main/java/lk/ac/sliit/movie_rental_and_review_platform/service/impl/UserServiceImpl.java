@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserEntity user = new UserEntity();
-        user.setName(request.getName());
+        user.setUserName(request.getUserName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // hash the password
         user.setRole(Role.valueOf(request.getRole()));
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity user = userRepository.findByEmail(request.getEmail()).get();
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName());
     }
 
     @Override
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
             if (userEntity.getRole() == Role.ROLE_USER) {
                 UserResponse userResponse = new UserResponse();
                 userResponse.setUserID(userEntity.getUserID());
-                userResponse.setName(userEntity.getName());
+                userResponse.setUserName(userEntity.getUserName());
                 userResponse.setEmail(userEntity.getEmail());
                 userResponse.setCreatedDate(userEntity.getCreatedDate());
                 userResponseList.add(userResponse);
@@ -78,15 +78,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getUser(String email) {
+    public UserResponse getUserByEmail(String email) {
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found or is not a regular user"));
         UserResponse userResponse = new UserResponse();
         userResponse.setUserID(userEntity.getUserID());
-        userResponse.setName(userEntity.getName());
+        userResponse.setUserName(userEntity.getUserName());
         userResponse.setEmail(userEntity.getEmail());
         userResponse.setCreatedDate(userEntity.getCreatedDate());
         return userResponse;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
 }
