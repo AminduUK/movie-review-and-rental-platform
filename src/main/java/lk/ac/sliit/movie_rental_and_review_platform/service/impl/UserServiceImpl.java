@@ -1,10 +1,10 @@
 package lk.ac.sliit.movie_rental_and_review_platform.service.impl;
 
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignInRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignUpRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.UpdateUserPasswordRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.AuthResponse;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.UserResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignInRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignUpRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.user.UpdateUserPasswordRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.auth.AuthResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.user.UserResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.entity.UserEntity;
 import lk.ac.sliit.movie_rental_and_review_platform.enums.Role;
 import lk.ac.sliit.movie_rental_and_review_platform.repository.UserRepository;
@@ -15,11 +15,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +27,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final ModelMapper modelMapper;
 
     @Override
     public AuthResponse signup(SignUpRequest request) {
