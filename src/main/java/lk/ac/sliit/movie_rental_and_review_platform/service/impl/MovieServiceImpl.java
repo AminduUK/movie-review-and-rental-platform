@@ -4,6 +4,7 @@ import lk.ac.sliit.movie_rental_and_review_platform.dto.request.movie.CreateMovi
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.movie.MovieResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.entity.CategoryEntity;
 import lk.ac.sliit.movie_rental_and_review_platform.entity.MovieEntity;
+import lk.ac.sliit.movie_rental_and_review_platform.repository.CategoryRepository;
 import lk.ac.sliit.movie_rental_and_review_platform.repository.MovieRepository;
 import lk.ac.sliit.movie_rental_and_review_platform.service.MovieService;
 import lombok.RequiredArgsConstructor;
