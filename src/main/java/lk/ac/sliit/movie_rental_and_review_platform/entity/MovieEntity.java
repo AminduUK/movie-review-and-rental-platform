@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "movie")
 public class MovieEntity {
@@ -34,28 +33,25 @@ public class MovieEntity {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     // Many-to-Many with Category via movie_category join table
-
-
-    /*   @ManyToMany
+    @ManyToMany
     @JoinTable(
             name = "movie_category",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
 
-   private List<CategoryEntity> categories = new ArrayList<>();
+    private List<CategoryEntity> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<RentalEntity> rentals = new ArrayList<>();
 
-   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-   private List<ReviewEntity> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<ReviewEntity> reviews = new ArrayList<>();
 
-   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-   private List<WatchlistEntity> watchlistEntries = new ArrayList<>();
-*/
-    // getters & setters
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<WatchlistEntity> watchlistEntries = new ArrayList<>();
+
 }
