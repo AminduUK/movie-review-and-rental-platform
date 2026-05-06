@@ -1,8 +1,8 @@
 package lk.ac.sliit.movie_rental_and_review_platform.controller.auth;
 
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignInRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignUpRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.AuthResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignInRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignUpRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.auth.AuthResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

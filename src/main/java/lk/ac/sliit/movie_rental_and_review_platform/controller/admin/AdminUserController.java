@@ -1,6 +1,6 @@
 package lk.ac.sliit.movie_rental_and_review_platform.controller.admin;
 
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.UserResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.user.UserResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
