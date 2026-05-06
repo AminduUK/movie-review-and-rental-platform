@@ -1,4 +1,4 @@
-package lk.ac.sliit.movie_rental_and_review_platform.dto.response;
+package lk.ac.sliit.movie_rental_and_review_platform.dto.response.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-
     private Long userID;
     private String userName;
     private String email;
