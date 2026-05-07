@@ -14,7 +14,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/update-password")
+    @PutMapping("/update-password")
     public ResponseEntity<String> updatePassword(@RequestBody UpdateUserPasswordRequest request) {
         userService.updateUserPassword(request);
         return ResponseEntity.ok("Password updated successfully");
