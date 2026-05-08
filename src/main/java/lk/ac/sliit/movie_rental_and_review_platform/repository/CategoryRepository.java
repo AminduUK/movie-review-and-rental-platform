@@ -1,11 +1,11 @@
 package lk.ac.sliit.movie_rental_and_review_platform.repository;
 
 import lk.ac.sliit.movie_rental_and_review_platform.entity.CategoryEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-public interface CategoryRepository {
-
-    List<CategoryEntity> findAllById(List<Long> categoryIds);
-
+    boolean existsByNameIgnoreCase(String name);
 }
