@@ -4,32 +4,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "rental")
-public class RentalEntity {
+@Table(name = "watchlist")
+public class WatchlistEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rentalId;
+    private Long watchlistId;
 
-    @Column(nullable = false)
-    private LocalDateTime rentalDate;
-
-    @Column(nullable = false)
-    private LocalDateTime dueDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private RentalStatus status;
-
-    public enum RentalStatus {
-        ACTIVE, RETURNED
-    }
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime addedDate;
 
     // Many-to-One → USER
     @ManyToOne
@@ -40,9 +31,5 @@ public class RentalEntity {
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)
     private MovieEntity movie;
-
-    // One-to-One → PAYMENT
-    @OneToOne(mappedBy = "rental", cascade = CascadeType.ALL)
-    private PaymentEntity payment;
 
 }
