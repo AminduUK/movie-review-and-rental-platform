@@ -107,6 +107,13 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Stripe -->
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>25.1.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
