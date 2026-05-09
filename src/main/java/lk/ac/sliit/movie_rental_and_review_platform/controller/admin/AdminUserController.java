@@ -5,13 +5,12 @@ import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/users")
+@RequestMapping("/api/admin/user")
 public class AdminUserController {
 
     private final UserService userService;
