@@ -1,6 +1,6 @@
 package lk.ac.sliit.movie_rental_and_review_platform.controller.admin;
 
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.UserResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.user.UserResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,20 +11,25 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admin/users")
 public class AdminUserController {
 
     private final UserService userService;
 
     @GetMapping("/get-all-users")
-    public List<UserResponse> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/search-user/{email}")
-    public ResponseEntity<UserResponse> searchUser(@PathVariable String email) {
-        return ResponseEntity.ok(userService.getUser(email));
+    @GetMapping("/search-user")
+    public ResponseEntity<UserResponse> searchUser(@RequestParam String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
+    @DeleteMapping("/delete-user/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User deleted successfully");
+    }
 
 }
