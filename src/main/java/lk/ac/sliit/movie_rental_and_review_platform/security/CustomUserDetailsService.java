@@ -2,6 +2,7 @@ package lk.ac.sliit.movie_rental_and_review_platform.security;
 
 import lk.ac.sliit.movie_rental_and_review_platform.entity.UserEntity;
 import lk.ac.sliit.movie_rental_and_review_platform.repository.UserRepository;
+import lk.ac.sliit.movie_rental_and_review_platform.stripe.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
