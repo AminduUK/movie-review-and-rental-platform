@@ -23,8 +23,6 @@ public class RentalEntity {
     @Column(nullable = false)
     private LocalDateTime dueDate;
 
-    private LocalDateTime returnDate; // null = still active
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RentalStatus status;
