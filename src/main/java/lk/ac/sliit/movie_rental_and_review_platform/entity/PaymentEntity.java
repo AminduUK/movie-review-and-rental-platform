@@ -1,7 +1,6 @@
 package lk.ac.sliit.movie_rental_and_review_platform.entity;
 
 import jakarta.persistence.*;
-import lk.ac.sliit.movie_rental_and_review_platform.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +23,10 @@ public class PaymentEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentStatus status;
+
+    public enum PaymentStatus {
+        SUCCESS, FAILED
+    }
 
     @Column(nullable = false)
     private LocalDateTime paymentDate;
