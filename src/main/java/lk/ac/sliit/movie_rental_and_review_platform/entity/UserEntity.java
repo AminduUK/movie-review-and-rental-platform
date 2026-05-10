@@ -1,7 +1,6 @@
 package lk.ac.sliit.movie_rental_and_review_platform.entity;
 
 import jakarta.persistence.*;
-import lk.ac.sliit.movie_rental_and_review_platform.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
+    private Long userId;
 
     @Column(nullable = false)
     private String userName;
@@ -33,6 +32,11 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    public enum Role {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
 
     @CreationTimestamp
     @Column(updatable = false)

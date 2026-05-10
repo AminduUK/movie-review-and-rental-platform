@@ -23,7 +23,7 @@ public class RentalEntity {
     @Column(nullable = false)
     private LocalDateTime dueDate;
 
-    private LocalDateTime returnDate; // null = still active
+    private LocalDateTime returnDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
