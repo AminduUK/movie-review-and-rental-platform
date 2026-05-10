@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -106,6 +108,85 @@ public class RentalServiceImpl implements RentalService {
         response.setRentalStatus(rentalEntity.getStatus().name());
         response.setPaymentStatus(payment.getStatus().name());
         response.setAmountPaid(payment.getAmount());
+
+        return response;
+    }
+
+    @Override
+    public List<RentalResponse> getActiveRentals(Long userId) {
+
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return rentalRepository.findByUserAndStatus(user, RentalEntity.RentalStatus.ACTIVE)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RentalResponse> getRentalHistory(Long userId) {
+
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return rentalRepository.findByUserAndStatus(user, RentalEntity.RentalStatus.RETURNED)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RentalResponse returnMovie(Long userId, Long rentalId) {
+        // Step 1 — find the rental
+        RentalEntity rental = rentalRepository.findById(rentalId)
+                .orElseThrow(() -> new RuntimeException("Rental not found"));
+
+        // Step 2 — make sure this rental belongs to the logged-in user
+        if (!rental.getUser().getUserId().equals(userId)) {
+            throw new RuntimeException("Unauthorized — this is not your rental");
+        }
+
+        // Step 3 — check if already returned
+        if (rental.getStatus() == RentalEntity.RentalStatus.RETURNED) {
+            throw new RuntimeException("This movie has already been returned");
+        }
+
+        // Step 4 — mark as returned
+        rental.setStatus(RentalEntity.RentalStatus.RETURNED);
+        rental.setReturnDate(LocalDateTime.now());
+
+        rentalRepository.save(rental);
+
+        return mapToResponse(rental, rental.getPayment());
+    }
+
+    private RentalResponse mapToResponse(RentalEntity rental) {
+        RentalResponse response = new RentalResponse();
+        response.setRentalId(rental.getRentalId());
+        response.setMovieTitle(rental.getMovie().getTitle());
+        response.setPosterUrl(rental.getMovie().getPosterUrl());
+        response.setRentalDate(rental.getRentalDate());
+        response.setDueDate(rental.getDueDate());
+        response.setRentalStatus(rental.getStatus().name());
+        return response;
+    }
+
+    private RentalResponse mapToResponse(RentalEntity rental, PaymentEntity payment) {
+        RentalResponse response = new RentalResponse();
+        response.setRentalId(rental.getRentalId());
+        response.setMovieTitle(rental.getMovie().getTitle());
+        response.setPosterUrl(rental.getMovie().getPosterUrl());
+        response.setRentalDate(rental.getRentalDate());
+        response.setDueDate(rental.getDueDate());
+        response.setReturnDate(rental.getReturnDate());
+        response.setRentalStatus(rental.getStatus().name());
+
+        // payment could be null in some edge cases so check first
+        if (payment != null) {
+            response.setPaymentStatus(payment.getStatus().name());
+            response.setAmountPaid(payment.getAmount());
+        }
 
         return response;
     }
