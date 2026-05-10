@@ -14,6 +14,7 @@ public class RentalResponse {
     private String posterUrl;
     private LocalDateTime rentalDate;
     private LocalDateTime dueDate;
+    private LocalDateTime returnDate;
     private String rentalStatus;
     private String paymentStatus;
     private Double amountPaid;
