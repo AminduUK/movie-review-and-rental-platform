@@ -8,6 +8,8 @@ import lk.ac.sliit.movie_rental_and_review_platform.repository.CategoryRepositor
 import lk.ac.sliit.movie_rental_and_review_platform.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -70,4 +72,36 @@ public class CategoryServiceImpl implements CategoryService {
         return updateResponse;
     }
 
+    @Override
+    public void deleteCategory(Long categoryId) {
+
+        CategoryEntity categoryEntity = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        // prevent deleting if category is assigned to movies
+        if (!categoryEntity.getMovies().isEmpty()) {
+            throw new RuntimeException("Cannot delete category — it is assigned to "
+                    + categoryEntity.getMovies().size() + " movie(s)");
+        }
+
+        categoryRepository.delete(categoryEntity);
+    }
+
+    @Override
+    public List<CategoryResponse> getAllCategories() {
+
+        List<CategoryResponse> categoryResponseList = new ArrayList<>();
+
+        categoryRepository.findAll().forEach(categoryEntity -> {
+            CategoryResponse categoryResponse = new CategoryResponse();
+            categoryResponse.setCategoryId(categoryEntity.getCategoryId());
+            categoryResponse.setName(categoryEntity.getName());
+            categoryResponse.setDescription(categoryResponse.getDescription());
+
+            categoryResponseList.add(categoryResponse);
+        });
+
+        return categoryResponseList;
+
+    }
 }
