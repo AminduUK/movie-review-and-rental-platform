@@ -13,5 +13,11 @@ public interface MovieService {
 
     void deleteMovie(Long movieId);
 
+    List<MovieResponse> searchMovieByTitle(String title);
+
+    List<MovieResponse> getMoviesByCategory(Long categoryId);
+
+    List<MovieResponse> getMoviesByYear(Integer releaseYear);
+
     List<MovieResponse> getAllMovies();
 }
