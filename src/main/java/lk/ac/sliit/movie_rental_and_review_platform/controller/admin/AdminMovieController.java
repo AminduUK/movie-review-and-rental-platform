@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -33,10 +31,5 @@ public class AdminMovieController {
     public ResponseEntity<String> deleteMovie(@PathVariable Long movieId) {
         movieService.deleteMovie(movieId);
         return ResponseEntity.ok("Movie deleted successfully");
-    }
-
-    @GetMapping("/get-all-movies")
-    public ResponseEntity<List<MovieResponse>> getAllMovies() {
-        return ResponseEntity.ok(movieService.getAllMovies());
     }
 }
