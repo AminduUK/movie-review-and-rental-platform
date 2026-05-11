@@ -19,4 +19,6 @@ public interface RentalRepository extends JpaRepository<RentalEntity, Long> {
 
     List<RentalEntity> findByStatusAndDueDateBefore(RentalEntity.RentalStatus status, LocalDateTime dateTime);
 
+    Boolean existsByUserUserIdAndMovieMovieId(Long userID, Long movieId);
+
 }
