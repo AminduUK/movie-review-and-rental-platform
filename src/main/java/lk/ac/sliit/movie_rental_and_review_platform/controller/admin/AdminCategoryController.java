@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -17,13 +18,28 @@ public class AdminCategoryController {
 
     private final CategoryService categoryService;
 
+    // Add new category
     @PostMapping("/add-category")
     public ResponseEntity<CategoryResponse> addNewCategory(@RequestBody CreateCategoryRequest createRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.addCategory(createRequest));
     }
 
+    // Update existing category
     @PutMapping("/update-category")
     public ResponseEntity<CategoryResponse> updateCategory(@RequestBody UpdateCategoryRequest updateRequest) {
         return ResponseEntity.ok(categoryService.updateCategory(updateRequest));
+    }
+
+    // Delete a category
+    @DeleteMapping("/delete-category/{categoryId}")
+    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) {
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.ok("Category deleted successfully");
+    }
+
+    // Get all categories
+    @GetMapping("/get-all-categories")
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 }
