@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,18 +20,21 @@ public class WatchlistEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long watchlistId;
 
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime addedDate;
-
-    // Many-to-One → USER
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    // One-to-One → USER (one user has one watchlist)
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
-    // Many-to-One → MOVIE
-    @ManyToOne
-    @JoinColumn(name = "movie_id", nullable = false)
-    private MovieEntity movie;
+    // Many-to-Many → MOVIE (one watchlist has many movies)
+    @ManyToMany
+    @JoinTable(
+            name = "watchlist_movies",
+            joinColumns = @JoinColumn(name = "watchlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<MovieEntity> movies = new ArrayList<>();
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 }

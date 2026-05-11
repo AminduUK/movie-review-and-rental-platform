@@ -9,6 +9,7 @@ import lk.ac.sliit.movie_rental_and_review_platform.entity.UserEntity;
 import lk.ac.sliit.movie_rental_and_review_platform.repository.UserRepository;
 import lk.ac.sliit.movie_rental_and_review_platform.security.JwtUtil;
 import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
+import lk.ac.sliit.movie_rental_and_review_platform.service.WatchlistService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final WatchlistService watchlistService;
 
     @Override
     public AuthResponse signup(SignUpRequest request) {
@@ -41,6 +43,11 @@ public class UserServiceImpl implements UserService {
         user.setCreatedDate(new Date());
 
         userRepository.save(user);
+
+        // Auto create watchlist
+        if (!user.getRole().equals(UserEntity.Role.ROLE_ADMIN)) {
+            watchlistService.createWatchlist(user);
+        }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponse(token, user.getRole().name(), user.getUserName());
