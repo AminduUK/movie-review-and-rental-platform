@@ -1,4 +1,4 @@
-package lk.ac.sliit.movie_rental_and_review_platform.controller.rental;
+package lk.ac.sliit.movie_rental_and_review_platform.controller.user;
 
 import lk.ac.sliit.movie_rental_and_review_platform.dto.request.rental.CreateRentalRequest;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.rental.RentalResponse;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user/rental")
-public class RentalController {
+public class UserRentalController {
 
     private final RentalService rentalService;
 

@@ -48,7 +48,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ReviewEntity> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<WatchlistEntity> watchlist = new ArrayList<>();
-
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private WatchlistEntity watchlist;
 }
