@@ -3,6 +3,7 @@ package lk.ac.sliit.movie_rental_and_review_platform.controller.common;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.movie.MovieResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.review.ReviewResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.MovieService;
+import lk.ac.sliit.movie_rental_and_review_platform.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
