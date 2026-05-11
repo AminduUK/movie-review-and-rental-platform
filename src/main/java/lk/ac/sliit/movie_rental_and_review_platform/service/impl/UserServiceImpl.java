@@ -1,11 +1,11 @@
 package lk.ac.sliit.movie_rental_and_review_platform.service.impl;
 
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignInRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.request.SignUpRequest;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.AuthResponse;
-import lk.ac.sliit.movie_rental_and_review_platform.dto.response.UserResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignInRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.auth.SignUpRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.user.UpdateUserPasswordRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.auth.AuthResponse;
+import lk.ac.sliit.movie_rental_and_review_platform.dto.response.user.UserResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.entity.UserEntity;
-import lk.ac.sliit.movie_rental_and_review_platform.enums.Role;
 import lk.ac.sliit.movie_rental_and_review_platform.repository.UserRepository;
 import lk.ac.sliit.movie_rental_and_review_platform.security.JwtUtil;
 import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
@@ -14,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final ModelMapper modelMapper;
 
     @Override
     public AuthResponse signup(SignUpRequest request) {
@@ -36,16 +34,16 @@ public class UserServiceImpl implements UserService {
         }
 
         UserEntity user = new UserEntity();
-        user.setName(request.getName());
+        user.setUserName(request.getUserName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword())); // hash the password
-        user.setRole(Role.valueOf(request.getRole()));
+        user.setRole(UserEntity.Role.valueOf(request.getRole()));
         user.setCreatedDate(new Date());
 
         userRepository.save(user);
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName());
     }
 
     @Override
@@ -57,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity user = userRepository.findByEmail(request.getEmail()).get();
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName());
     }
 
     @Override
@@ -65,10 +63,10 @@ public class UserServiceImpl implements UserService {
         List<UserResponse> userResponseList = new ArrayList<>();
 
         userRepository.findAll().forEach(userEntity -> {
-            if (userEntity.getRole() == Role.ROLE_USER) {
+            if (userEntity.getRole() == UserEntity.Role.ROLE_USER) {
                 UserResponse userResponse = new UserResponse();
-                userResponse.setUserID(userEntity.getUserID());
-                userResponse.setName(userEntity.getName());
+                userResponse.setUserID(userEntity.getUserId());
+                userResponse.setUserName(userEntity.getUserName());
                 userResponse.setEmail(userEntity.getEmail());
                 userResponse.setCreatedDate(userEntity.getCreatedDate());
                 userResponseList.add(userResponse);
@@ -78,15 +76,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getUser(String email) {
+    public UserResponse getUserByEmail(String email) {
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found or is not a regular user"));
         UserResponse userResponse = new UserResponse();
-        userResponse.setUserID(userEntity.getUserID());
-        userResponse.setName(userEntity.getName());
+        userResponse.setUserID(userEntity.getUserId());
+        userResponse.setUserName(userEntity.getUserName());
         userResponse.setEmail(userEntity.getEmail());
         userResponse.setCreatedDate(userEntity.getCreatedDate());
         return userResponse;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateUserPassword(UpdateUserPasswordRequest request) {
+        UserEntity userEntity = userRepository.findById(request.getUserID())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        //verify current password matches the password in the database
+        if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        //make sure new password is different from the current password
+        if (passwordEncoder.matches(request.getNewPassword(), userEntity.getPassword())) {
+            throw new RuntimeException("New password cannot be the same as current password");
+        }
+
+        //encode and save the new password
+        userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(userEntity);
+
     }
 
 }

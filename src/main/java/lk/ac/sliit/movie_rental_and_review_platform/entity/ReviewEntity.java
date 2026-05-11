@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "review")
-
 public class ReviewEntity {
 
         @Id
@@ -36,10 +34,9 @@ public class ReviewEntity {
         private UserEntity user;
 
         // Many-to-One → MOVIE
-        //@ManyToOne
-        //@JoinColumn(name = "movie_id", nullable = false)
-        //private MovieEntity movie;
+        @ManyToOne
+        @JoinColumn(name = "movie_id", nullable = false)
+        private MovieEntity movie;
 
-        // getters & setters
 }
 
