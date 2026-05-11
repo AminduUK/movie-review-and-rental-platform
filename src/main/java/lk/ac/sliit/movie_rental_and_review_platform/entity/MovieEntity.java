@@ -51,7 +51,4 @@ public class MovieEntity {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<ReviewEntity> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<WatchlistEntity> watchlistEntries = new ArrayList<>();
-
 }
