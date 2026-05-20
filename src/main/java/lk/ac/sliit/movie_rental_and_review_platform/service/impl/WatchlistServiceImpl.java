@@ -98,6 +98,7 @@ public class WatchlistServiceImpl implements WatchlistService {
                             movieResponse.setMovieId(movie.getMovieId());
                             movieResponse.setTitle(movie.getTitle());
                             movieResponse.setPosterUrl(movie.getPosterUrl());
+                            movieResponse.setTrailerUrl(movie.getTrailerUrl());
                             movieResponse.setReleaseYear(movie.getReleaseYear());
                             movieResponse.setLanguage(movie.getLanguage());
                             movieResponse.setCategories(
