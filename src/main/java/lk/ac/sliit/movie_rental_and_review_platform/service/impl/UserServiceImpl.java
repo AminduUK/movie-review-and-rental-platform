@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         }
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getUserName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName(), user.getUserId());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity user = userRepository.findByEmail(request.getEmail()).get();
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getRole().name(), user.getUserName());
+        return new AuthResponse(token, user.getRole().name(), user.getUserName(), user.getUserId());
     }
 
     @Override
