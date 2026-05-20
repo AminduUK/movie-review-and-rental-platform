@@ -168,6 +168,7 @@ public class RentalServiceImpl implements RentalService {
         response.setPosterUrl(rental.getMovie().getPosterUrl());
         response.setRentalDate(rental.getRentalDate());
         response.setDueDate(rental.getDueDate());
+        response.setReturnDate(rental.getReturnDate());
         response.setRentalStatus(rental.getStatus().name());
         return response;
     }
