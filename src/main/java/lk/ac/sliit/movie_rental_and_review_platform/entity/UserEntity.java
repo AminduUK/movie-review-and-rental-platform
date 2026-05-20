@@ -18,9 +18,10 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
     @Column(unique = true, nullable = false)
@@ -39,7 +40,7 @@ public class UserEntity {
     }
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(name = "created_date", updatable = false)
     private Date createdDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
