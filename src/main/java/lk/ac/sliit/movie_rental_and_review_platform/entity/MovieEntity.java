@@ -30,6 +30,7 @@ public class MovieEntity {
     private Integer duration;
     private Integer releaseYear;
     private String posterUrl;
+    private String trailerUrl;
 
     @CreationTimestamp
     @Column(updatable = false)
