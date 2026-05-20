@@ -38,6 +38,7 @@ public class MovieServiceImpl implements MovieService {
         movieEntity.setDuration(createRequest.getDuration());
         movieEntity.setReleaseYear(createRequest.getReleaseYear());
         movieEntity.setPosterUrl(createRequest.getPosterUrl());
+        movieEntity.setTrailerUrl(createRequest.getTrailerUrl());
         movieEntity.setCreatedAt(new Date());
 
         // Attach categories if provided
@@ -87,6 +88,10 @@ public class MovieServiceImpl implements MovieService {
 
         if (updateRequest.getPosterUrl() != null) {
             movieEntity.setPosterUrl(updateRequest.getPosterUrl());
+        }
+
+        if (updateRequest.getTrailerUrl() != null) {
+            movieEntity.setTrailerUrl(updateRequest.getTrailerUrl());
         }
 
         // Update categories if provided
@@ -187,6 +192,7 @@ public class MovieServiceImpl implements MovieService {
         movieResponse.setDuration(movieEntity.getDuration());
         movieResponse.setReleaseYear(movieEntity.getReleaseYear());
         movieResponse.setPosterUrl(movieEntity.getPosterUrl());
+        movieResponse.setTrailerUrl(movieEntity.getTrailerUrl());
         movieResponse.setCreatedAt(movieEntity.getCreatedAt());
 
         movieResponse.setCategories(
