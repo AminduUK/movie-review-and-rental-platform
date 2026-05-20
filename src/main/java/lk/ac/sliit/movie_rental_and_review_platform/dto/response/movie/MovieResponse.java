@@ -17,6 +17,7 @@ public class MovieResponse {
     private Integer duration;
     private Integer releaseYear;
     private String posterUrl;
+    private String trailerUrl;
     private Date createdAt;
     private List<String> categories;
 }

@@ -15,5 +15,6 @@ public class CreateMovieRequest {
     private Integer duration;
     private Integer releaseYear;
     private String posterUrl;
+    private String trailerUrl;
     private List<Long> categoryIds;
 }
