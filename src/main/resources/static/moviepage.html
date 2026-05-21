@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineNest – Movie List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/moviepage.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="reveal">
+    <a href="index.html" class="logo">CINE<span>NEST</span><span class="logo-dot"></span></a>
+    <div class="nav-right">
+        <a href="signin_page.html" class="nav-link">Sign In</a>
+        <a href="signup_page.html" class="btn-join">Join Free</a>
+    </div>
+</nav>
+
+<!-- ═══════ GENRES ═══════ -->
+<section class="genres-section reveal">
+    <br>
+    <div class="section-label">Browse by Genre · On Demand</div>
+    <div class="genre-pills">
+        <div class="pill active">All</div>
+        <div class="pill">Action</div>
+        <div class="pill">Animation</div>
+        <div class="pill">Comedy</div>
+        <div class="pill">Crime</div>
+        <div class="pill">Documentary</div>
+        <div class="pill">Drama</div>
+        <div class="pill">Horror</div>
+        <div class="pill">Romance</div>
+        <div class="pill">Sci-Fi</div>
+        <div class="pill">Thriller</div>
+    </div>
+</section>
+
+<!-- ═══════ TRENDING ═══════ -->
+<section class="content-section reveal">
+    <div class="section-header">
+        <div class="section-title">
+            Trending This Week
+            <span class="badge">Hot</span>
+        </div>
+        <a href="#" class="see-all" data-section="trending">See All →</a>
+    </div>
+    <div class="cards-row-wrapper">
+        <div class="cards-row" id="trendingRow"></div>
+    </div>
+</section>
+
+<!-- ═══════ POPULAR TV SHOWS ═══════ -->
+<section class="content-section reveal">
+    <div class="section-header">
+        <div class="section-title">
+            Popular TV Shows
+            <span class="badge">Series</span>
+        </div>
+        <a href="#" class="see-all" data-section="tv">See All →</a>
+    </div>
+    <div class="cards-row-wrapper">
+        <div class="cards-row" id="tvRow"></div>
+    </div>
+</section>
+
+<!-- ═══════ NEW ARRIVALS ═══════ -->
+<section class="content-section reveal">
+    <div class="section-header">
+        <div class="section-title">New Arrivals</div>
+        <a href="#" class="see-all" data-section="new">See All →</a>
+    </div>
+    <div class="cards-row-wrapper">
+        <div class="cards-row" id="newRow"></div>
+    </div>
+</section>
+
+<script src="js/moviepage.js"></script>
+
+</body>
+</html>
