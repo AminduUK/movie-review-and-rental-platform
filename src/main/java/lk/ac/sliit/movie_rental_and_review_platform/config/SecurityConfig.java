@@ -36,6 +36,16 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // no sessions, use JWT
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/signin_page.html",
+                                "/signup_page.html",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/assets/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    // CRITICAL: Permit all OPTIONS preflight requests
                         .requestMatchers("/api/auth/**").permitAll()       // signup & signin are public
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // admin-only routes
