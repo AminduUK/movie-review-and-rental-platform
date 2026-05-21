@@ -1,0 +1,27 @@
+package lk.ac.sliit.movie_rental_and_review_platform.controller.user;
+
+import lk.ac.sliit.movie_rental_and_review_platform.dto.request.user.UpdateUserPasswordRequest;
+import lk.ac.sliit.movie_rental_and_review_platform.service.UserService;
+import lk.ac.sliit.movie_rental_and_review_platform.stripe.CustomUserDetails;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+@CrossOrigin
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/user")
+public class UserCredentialController {
+
+    private final UserService userService;
+
+    @PutMapping("/update-password")
+    public ResponseEntity<String> updatePassword(@RequestBody UpdateUserPasswordRequest request) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        request.setUserID(userDetails.getUserId());
+        userService.updateUserPassword(request);
+        return ResponseEntity.ok("Password updated successfully");
+    }
+
+}
