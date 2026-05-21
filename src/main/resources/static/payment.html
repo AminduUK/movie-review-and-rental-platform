@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineNest – Complete Your Rental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/payment.css">
+    <!-- Load Stripe JS -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+<div class="film-grain"></div>
+<div class="payment-bg"></div>
+
+<nav>
+    <a href="user_page.html" class="logo">CINE<span>NEST</span><span class="logo-dot"></span></a>
+    <div class="nav-right">
+        <a href="user_page.html" class="nav-link">Back to Dashboard</a>
+    </div>
+</nav>
+
+<div class="payment-container">
+    <div class="payment-card">
+        <!-- Movie Summary Column -->
+        <div class="movie-summary-col">
+            <h2 class="section-title">Rental Summary</h2>
+            <div class="movie-meta-card">
+                <div class="movie-poster-wrap" id="moviePosterWrap">
+                    <div class="poster-ph">🎬</div>
+                </div>
+                <div class="movie-details">
+                    <h3 class="movie-title" id="movieTitle">Loading Movie...</h3>
+                    <div class="rental-plan-tag" id="planTag">SD Quality</div>
+                    <div class="rental-duration">🔑 48-Hour Viewing Window</div>
+                </div>
+            </div>
+
+            <div class="pricing-table">
+                <div class="price-row">
+                    <span>Rental Duration</span>
+                    <span>48 Hours</span>
+                </div>
+                <div class="price-row">
+                    <span>Quality Plan</span>
+                    <span id="planName">Standard Definition</span>
+                </div>
+                <div class="price-row total-row">
+                    <span>Total to Pay</span>
+                    <span class="price-total" id="priceTotal">$2.99</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form Column -->
+        <div class="form-col">
+            <h2 class="section-title">Secure Checkout</h2>
+            <p class="form-subtitle">Powered by Stripe encryption</p>
+
+            <div class="api-error" id="payError">
+                <span>⚠️</span><span id="payErrorMsg">Something went wrong</span>
+            </div>
+
+            <!-- Stripe Credit Card Form -->
+            <form id="payment-form" onsubmit="handlePaymentSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Billing Name</label>
+                    <input class="form-input" id="cardholder-name" type="text" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Card Details</label>
+                    <div id="card-element" class="stripe-card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+                    <!-- Used to display form errors. -->
+                    <div class="error-msg" id="card-errors" role="alert"></div>
+                </div>
+
+                <button class="btn-submit-pay" id="btnPayNow">
+                    <div class="spinner" id="paySpinner"></div>
+                    <span id="btnPayText">Confirm & Authorize Rental</span>
+                </button>
+            </form>
+
+            <div class="security-badges">
+                <div class="badge"><svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                            d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                </svg> SSL Secured</div>
+                <div class="badge">💳 PCI Compliant</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay">
+    <div class="success-modal">
+        <div class="success-icon">🍿</div>
+        <h2 class="success-title">Rental Authorized!</h2>
+        <p class="success-sub">Grab your popcorn! The movie has been added to your dashboard.</p>
+        <button class="btn-dashboard" onclick="window.location.href='user_page.html'">Start Watching</button>
+    </div>
+</div>
+
+<div class="toast" id="toast">
+    <span id="toastIcon"></span>
+    <span id="toastMsg"></span>
+</div>
+
+<script src="js/payment.js"></script>
+</body>
+
+</html>
