@@ -103,7 +103,9 @@ src/
 ├── main/
 │   ├── java/lk/ac/sliit/movie_rental_and_review_platform/
 │   │   ├── config/
-│   │   │   └── SecurityConfig.java
+|   |   |   ├──Config.java
+│   │   │   ├──SecurityConfig.java
+|   |   |   ├──StripeConfig.java
 │   │   ├── controller/
 │   │   │   ├── admin/
 │   │   │   │   ├── AdminMovieController.java
