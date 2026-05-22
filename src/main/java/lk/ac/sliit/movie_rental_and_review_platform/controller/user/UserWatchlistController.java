@@ -2,7 +2,7 @@ package lk.ac.sliit.movie_rental_and_review_platform.controller.user;
 
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.watchlist.WatchlistResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.WatchlistService;
-import lk.ac.sliit.movie_rental_and_review_platform.stripe.CustomUserDetails;
+import lk.ac.sliit.movie_rental_and_review_platform.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
