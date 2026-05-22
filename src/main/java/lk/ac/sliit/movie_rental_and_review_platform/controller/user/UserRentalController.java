@@ -3,7 +3,7 @@ package lk.ac.sliit.movie_rental_and_review_platform.controller.user;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.request.rental.CreateRentalRequest;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.rental.RentalResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.RentalService;
-import lk.ac.sliit.movie_rental_and_review_platform.stripe.CustomUserDetails;
+import lk.ac.sliit.movie_rental_and_review_platform.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,7 @@ import lk.ac.sliit.movie_rental_and_review_platform.dto.request.review.CreateRev
 import lk.ac.sliit.movie_rental_and_review_platform.dto.request.review.UpdateReviewRequest;
 import lk.ac.sliit.movie_rental_and_review_platform.dto.response.review.ReviewResponse;
 import lk.ac.sliit.movie_rental_and_review_platform.service.ReviewService;
-import lk.ac.sliit.movie_rental_and_review_platform.stripe.CustomUserDetails;
+import lk.ac.sliit.movie_rental_and_review_platform.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
